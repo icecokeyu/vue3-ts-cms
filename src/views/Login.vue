@@ -1,0 +1,15 @@
+<template>
+  <div class="login">登录</div>
+  <h2>{{ $store.state.name }}</h2>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'login'
+})
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="less"></style>
