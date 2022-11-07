@@ -1,6 +1,5 @@
 <template>
-  <div class="login">登录</div>
-  <h2>{{ $store.state.name }}</h2>
+  <div class="login">登录1111111</div>
 </template>
 
 <script lang="ts">
