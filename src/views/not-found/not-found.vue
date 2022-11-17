@@ -1,14 +1,18 @@
 <template>
-  <div class="login">登录1111111</div>
+  <div>
+    <h1>not found: {{ $route.params.pathMatch }}</h1>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'login'
+  name: 'not-found',
+  setup() {
+    return {}
+  }
 })
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less"></style>

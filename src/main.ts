@@ -5,61 +5,25 @@ import App from './App.vue'
 
 import router from './router'
 import store from './store'
-import { tyRequest } from '@/service'
+// import { tyRequest } from '@/service'
 // 全局导入element-plus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import 'assets/css/index.less'
 
+import { refreshSaveLocal } from '@/store'
+// 导入element plus的所有图标
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
 const app = createApp(App)
 
-// tyRequest
-//   .request({
-//     url: '/home/multidata',
-//     method: 'GET',
-//     // showLoading: false,
-//     interceptors: {
-//       requestInterceptor: (config) => {
-//         console.log('单个请求：请求成功的拦截器')
-//         return config
-//       },
-//       requestInterceptorCatch: (err) => {
-//         console.log('单个请求：请求失败的拦截器')
-//         return err
-//       },
-//       responseInterceptor: (res) => {
-//         console.log('单个请求：响应成功的拦截器')
-//         return res
-//       },
-//       responseInterceptorCatch: (err) => {
-//         console.log('单个请求：响应失败的拦截器')
-//         return err
-//       }
-//     }
-//   })
-//   .then((res) => {
-//     console.log(res)
-//   })
-interface dataType {
-  data: any
-  returnCode: string
-  success: boolean
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
 }
 
-tyRequest
-  .request<dataType>({
-    url: '/home/multidata',
-    method: 'GET',
-    showLoading: false
-  })
-  .then((res) => {
-    console.log(res.data)
-    console.log(res.returnCode)
-    console.log(res.success)
-  })
-
-app.use(router)
 app.use(store)
+refreshSaveLocal()
+app.use(router)
 app.use(ElementPlus)
 
 app.mount('#app')

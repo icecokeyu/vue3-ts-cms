@@ -5,7 +5,9 @@ const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 module.exports = {
   // 1.vue cli 提供的属性
   outputDir: './build',
-  publicPath: './',
+  devServer: {
+    historyApiFallback: true
+  },
   // 2.webpack的配置
   configureWebpack: {
     resolve: {

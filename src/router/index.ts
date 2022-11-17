@@ -1,26 +1,48 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import LocalCache from '@/utils/localCache'
+import { firstMenu } from '@/utils/map-menus'
 
-const login = () => import('@/views/login/Login.vue')
-const Home = () => import('@/views/main/Home.vue')
+const Login = () => import('@/views/login/login.vue')
+const Main = () => import('@/views/main/main.vue')
+const NotFound = () => import('@/views/not-found/not-found.vue')
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/main'
   },
   {
     path: '/login',
-    component: login
+    name: 'login',
+    component: Login
   },
   {
-    path: '/home',
-    component: Home
+    path: '/main',
+    name: 'main',
+    component: Main
+  },
+  {
+    path: '/:pathMatch(.*)',
+    name: 'not-found',
+    component: NotFound
   }
 ]
 
 const router = createRouter({
   routes: routes,
   history: createWebHistory()
+})
+
+router.beforeEach((to) => {
+  if (to.path !== '/login') {
+    const token = LocalCache.getCache('token')
+    if (!token) {
+      return '/login'
+    }
+  }
+  if (to.path === '/main') {
+    return firstMenu.url
+  }
 })
 
 export default router

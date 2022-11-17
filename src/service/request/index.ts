@@ -31,7 +31,7 @@ class TYRequest {
     // 2.添加全局的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('全局的请求成功拦截器')
+        // console.log('全局的请求成功拦截器')
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -42,7 +42,7 @@ class TYRequest {
         return config
       },
       (err) => {
-        console.log('全局的请求失败拦截器')
+        // console.log('全局的请求失败拦截器')
         return err
       }
     )
@@ -50,7 +50,7 @@ class TYRequest {
       (res) => {
         // 要写在return前面，不然就不执行了
         this.loading?.close()
-        console.log('全局的响应成功拦截器')
+        // console.log('全局的响应成功拦截器')
         const data = res.data
         if (data.returnCode === '-1001') {
           console.log('请求失败~, 错误信息')
@@ -60,7 +60,7 @@ class TYRequest {
       },
       (err) => {
         this.loading?.close()
-        console.log('全局的响应失败拦截器')
+        // console.log('全局的响应失败拦截器')
         // 例子: 判断不同的HttpErrorCode显示不同的错误信息
         if (err.response.status === 404) {
           console.log('404的错误~')
