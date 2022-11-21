@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import 'normalize.css'
+import { globalRegister } from '@/global'
 
 import App from './App.vue'
 
@@ -20,7 +21,7 @@ const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
-
+app.use(globalRegister)
 app.use(store)
 refreshSaveLocal()
 app.use(router)

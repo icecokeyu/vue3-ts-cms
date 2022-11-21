@@ -1,4 +1,5 @@
 import { ILoginState } from '@/store/login/type'
+import { ISystemState } from '@/store/main/system/type'
 
 export interface IRootState {
   name: string
@@ -7,6 +8,7 @@ export interface IRootState {
 
 interface IRootWithModule {
   login: ILoginState
+  system: ISystemState
 }
 
 export type IStoreType = IRootState & IRootWithModule

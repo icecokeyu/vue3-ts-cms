@@ -6,17 +6,20 @@ export const searchFormConfig: IForm = {
     {
       type: 'input',
       label: 'id',
-      placeholder: '请输入id'
+      placeholder: '请输入id',
+      modelValue: 'id'
     },
     {
       type: 'input',
       label: '用户名',
-      placeholder: '请输入用户名'
+      placeholder: '请输入用户名',
+      modelValue: 'name'
     },
     {
       type: 'password',
       label: '密码',
-      placeholder: '请输入密码'
+      placeholder: '请输入密码',
+      modelValue: 'password'
     },
     {
       type: 'select',
@@ -25,7 +28,8 @@ export const searchFormConfig: IForm = {
       options: [
         { title: '篮球', value: 'basketball' },
         { title: '足球', value: 'football' }
-      ]
+      ],
+      modelValue: 'sports'
     },
     {
       type: 'datepicker',
@@ -34,7 +38,8 @@ export const searchFormConfig: IForm = {
         startPlaceholder: '开始时间',
         endPlaceholder: '结束时间',
         type: 'daterange'
-      }
+      },
+      modelValue: 'createTime'
     }
   ]
 }

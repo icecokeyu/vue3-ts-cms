@@ -37,7 +37,6 @@ const loginModule: Module<ILoginState, IRootState> = {
 
       // 这里拿到不同用户对应的菜单，可以处理都拿到对应的路由，再动态添加路由
       const routes = mapMenus(menus)
-      console.log(routes)
       routes.forEach((route) => {
         router.addRoute('main', route)
       })
