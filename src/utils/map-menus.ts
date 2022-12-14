@@ -9,8 +9,10 @@ export function mapMenus(menus: any[]): RouteRecordRaw[] {
   const allRoutes: RouteRecordRaw[] = []
   // require.context 是webpack加载文件的函数，返回一个对象
   const routeFiles = require.context('../router/main', true, /\.ts/)
+  // console.log(routeFiles.keys())
   routeFiles.keys().forEach((key) => {
     const route = require('../router/main' + key.split('.')[1])
+    // console.log(route.default)
     allRoutes.push(route.default)
   })
 
@@ -64,6 +66,36 @@ export function pathMapBreadcrumb(menu: any[], path: string): breadType[] {
     }
   }
   return breadConfig
+}
+
+export function pathMapMenuPermission(userMenus: any[]) {
+  const menuPermission: any[] = []
+  const _recurseGetPermission = (menu: any[]) => {
+    for (const item of menu) {
+      if (item.type === 1 || item.type === 2) {
+        _recurseGetPermission(item.children ?? [])
+      } else {
+        menuPermission.push(item.permission)
+      }
+    }
+  }
+  _recurseGetPermission(userMenus)
+  return menuPermission
+}
+
+export function pathMapMenuLeafKeys(menuList: any[]) {
+  const leafKeys: number[] = []
+  const _recurseGetLeafKeys = (menuList: any[]) => {
+    for (const item of menuList) {
+      if (item.children) {
+        _recurseGetLeafKeys(item.children)
+      } else {
+        leafKeys.push(item.id)
+      }
+    }
+  }
+  _recurseGetLeafKeys(menuList)
+  return leafKeys
 }
 
 export { firstMenu }

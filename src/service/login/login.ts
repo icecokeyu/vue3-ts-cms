@@ -27,3 +27,9 @@ export function requestUserMenus(id: number) {
     showLoading: false
   })
 }
+
+export function requestAllMenus(url: string) {
+  return tyRequest.post<IDataType>({
+    url
+  })
+}

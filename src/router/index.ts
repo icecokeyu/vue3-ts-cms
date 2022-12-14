@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import LocalCache from '@/utils/localCache'
 import { firstMenu } from '@/utils/map-menus'
 
@@ -30,7 +30,7 @@ const routes: RouteRecordRaw[] = [
 
 const router = createRouter({
   routes: routes,
-  history: createWebHistory()
+  history: createWebHashHistory()
 })
 
 router.beforeEach((to) => {

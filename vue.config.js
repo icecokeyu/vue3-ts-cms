@@ -1,30 +1,33 @@
-const AutoImport = require('unplugin-auto-import/webpack')
-const Components = require('unplugin-vue-components/webpack')
-const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
+const path = require('path')
 
 module.exports = {
-  // 1.vue cli 提供的属性
-  outputDir: './build',
+  publicPath: './',
   devServer: {
-    historyApiFallback: true
-  },
-  // 2.webpack的配置
-  configureWebpack: {
-    resolve: {
-      alias: {
-        views: '@/views',
-        components: '@/components',
-        assets: '@/assets',
-        network: '@/network'
+    proxy: {
+      '/api': {
+        target: 'http://152.136.185.210:4000/',
+        pathRewrite: {
+          '^/api': ''
+        },
+        ws: true,
+        changeOrigin: true
       }
-    },
-    plugins: [
-      AutoImport({
-        resolvers: [ElementPlusResolver()]
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()]
-      })
-    ]
+    }
+  },
+  // configureWebpack: {
+  //   resolve: {
+  //     alias: {
+  //       views: '@/views'
+  //     }
+  //   }
+  // }
+  configureWebpack: (config) => {
+    config.resolve.alias = {
+      '@': path.resolve(__dirname, 'src'),
+      views: '@/views'
+    }
   }
+  // chainWebpack: (config) => {
+  //   config.resolve.alias.set('@', path.resolve(__dirname, 'src')).set('views', '@/views')
+  // }
 }

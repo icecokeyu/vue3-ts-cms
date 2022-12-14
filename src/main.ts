@@ -10,7 +10,7 @@ import store from './store'
 // 全局导入element-plus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import 'assets/css/index.less'
+import './assets/css/index.less'
 
 import { refreshSaveLocal } from '@/store'
 // 导入element plus的所有图标

@@ -1,16 +1,27 @@
 <template>
   <div class="department">
-    <h2>department</h2>
+    <page-content
+      pageName="department"
+      :contentTableConfig="contentTableConfig"
+    ></page-content>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import PageContent from '@/components/page-content'
+
+import { contentTableConfig } from './config/content-config'
 
 export default defineComponent({
   name: 'department',
+  components: {
+    PageContent
+  },
   setup() {
-    return {}
+    return {
+      contentTableConfig
+    }
   }
 })
 </script>

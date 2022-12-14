@@ -33,7 +33,7 @@
           </el-sub-menu>
         </template>
         <!--   二级菜单     -->
-        <template v-else-if="menuItem === 2">
+        <template v-else-if="menuItem.type === 2">
           <el-menu-item index="menuItem.id + ''">
             <template #title>
               <i class="menuItem.icon"></i>

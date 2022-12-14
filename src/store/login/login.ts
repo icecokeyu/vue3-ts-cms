@@ -8,7 +8,7 @@ import {
 } from '@/service/login/login'
 import LocalCache from '@/utils/localCache'
 import router from '@/router'
-import { mapMenus } from '@/utils/map-menus'
+import { mapMenus, pathMapMenuPermission } from '@/utils/map-menus'
 
 interface IAccount {
   name: string
@@ -21,7 +21,8 @@ const loginModule: Module<ILoginState, IRootState> = {
     return {
       token: '',
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      permission: []
     }
   },
   getters: {},
@@ -40,16 +41,21 @@ const loginModule: Module<ILoginState, IRootState> = {
       routes.forEach((route) => {
         router.addRoute('main', route)
       })
+      state.permission = pathMapMenuPermission(menus)
     }
   },
   actions: {
-    async getLoginAction({ commit }, account: IAccount) {
+    async getLoginAction({ commit, dispatch }, account: IAccount) {
       // 执行登录逻辑
       // 1.发起登录请求，拿到id，token并保存, token要保存在localStorage中
       const loginResult = await userLogin(account)
       const { id, token } = loginResult.data
       LocalCache.saveCache('token', token)
       commit('saveToken', token)
+
+      // 因为请求数据都是异步的，为了防止初始化数据时还没拿到token 可以在这里初始化数据
+      dispatch('getInitialDataAction', null, { root: true })
+
       // 2.拿到userInfo并保存
       const userInfoResult = await requestUserInfo(id)
       const userInfo = userInfoResult.data
@@ -58,7 +64,6 @@ const loginModule: Module<ILoginState, IRootState> = {
 
       // 3.拿到userMenus并保存
       const userMenusResult = await requestUserMenus(userInfo.role.id)
-      console.log(userMenusResult)
       const userMenus = userMenusResult.data
       LocalCache.saveCache('userMenus', userMenus)
       commit('saveMenu', userMenus)
@@ -66,9 +71,12 @@ const loginModule: Module<ILoginState, IRootState> = {
       // 2.跳转到主页
       router.push('/main')
     },
-    getLocalSaveAction({ commit }) {
+    getLocalSaveAction({ commit, dispatch }) {
       const token = LocalCache.getCache('token')
       if (token) commit('saveToken', token)
+
+      // 因为请求数据都是异步的，为了防止初始化数据时还没拿到token 可以在这里初始化数据
+      dispatch('getInitialDataAction', null, { root: true })
 
       const userInfo = LocalCache.getCache('userInfo')
       if (userInfo) commit('saveUserInfo', userInfo)

@@ -32,17 +32,11 @@ export default defineComponent({
   setup() {
     const isCollapse = ref(false)
     const collapseClick = (fold: boolean) => {
-      console.log(fold)
       isCollapse.value = fold
     }
-    // const route = useRoute()
-    // const roureQuery = route.query.name
-    // console.log(roureQuery)
-    // console.log(111111111111)
     return {
       collapseClick,
       isCollapse
-      // roureQuery
     }
   }
 })
